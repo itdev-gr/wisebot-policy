@@ -1,21 +1,23 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { HashRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Layout from './components/Layout';
-import Quiz from './components/Quiz';
-import HeroFactory from './components/HeroFactory';
-import Academy from './components/Academy';
-import Ebooks from './components/Ebooks';
-import Dashboard from './components/Dashboard';
-import AdminDashboard from './components/AdminDashboard';
-import Account from './components/Account';
-import WiseFriends from './components/WiseFriends';
-import LandingPage from './components/LandingPage';
-import Cinema from './components/Cinema';
-import ThreeDFactory from './components/ThreeDFactory';
-import HeroMarket from './components/HeroMarket';
-import LegalHub from './components/LegalHub'; // Import
 import { motion as m, AnimatePresence } from 'framer-motion';
+
+// Lazy load pages – φορτώνονται μόνο όταν ο χρήστης μπαίνει στη σελίδα (γρηγορότερο άνοιγμα στο κινητό)
+const Quiz = lazy(() => import('./components/Quiz'));
+const HeroFactory = lazy(() => import('./components/HeroFactory'));
+const Academy = lazy(() => import('./components/Academy'));
+const Ebooks = lazy(() => import('./components/Ebooks'));
+const Dashboard = lazy(() => import('./components/Dashboard'));
+const AdminDashboard = lazy(() => import('./components/AdminDashboard'));
+const Account = lazy(() => import('./components/Account'));
+const WiseFriends = lazy(() => import('./components/WiseFriends'));
+const LandingPage = lazy(() => import('./components/LandingPage'));
+const Cinema = lazy(() => import('./components/Cinema'));
+const ThreeDFactory = lazy(() => import('./components/ThreeDFactory'));
+const HeroMarket = lazy(() => import('./components/HeroMarket'));
+const LegalHub = lazy(() => import('./components/LegalHub'));
 import { 
   Zap, 
   Shield,
@@ -233,22 +235,28 @@ function AppContent() {
   return (
     <HashRouter>
       <Layout lang={lang} setLang={setLang} xp={xp} level={level} completedIds={completedIds} myHeroes={myHeroes}>
-        <Routes>
-          <Route path="/" element={<LandingPage lang={lang} />} />
-          <Route path="/portal" element={<Portal lang={lang} />} />
-          <Route path="/dashboard" element={<Dashboard lang={lang} xp={xp} level={level} completedIds={completedIds} myHeroes={myHeroes} />} />
-          <Route path="/factory" element={<HeroFactory lang={lang} addHero={addHero} />} />
-          <Route path="/3d-factory" element={<ThreeDFactory lang={lang} />} />
-          <Route path="/market" element={<HeroMarket lang={lang} myHeroes={myHeroes} />} /> 
-          <Route path="/wise-friends" element={<WiseFriends lang={lang} myHeroes={myHeroes} updateHero={updateHero} completedIds={completedIds} />} />
-          <Route path="/academy" element={<Academy lang={lang} addXp={addXp} completedIds={completedIds} />} />
-          <Route path="/cinema" element={<Cinema lang={lang} myHeroes={myHeroes} />} />
-          <Route path="/ebooks" element={<Ebooks lang={lang} addXp={addXp} completedIds={completedIds} xp={xp} level={level} />} />
-          <Route path="/quiz" element={<Quiz lang={lang} />} />
-          <Route path="/admin" element={<AdminDashboard lang={lang} />} />
-          <Route path="/account" element={<Account lang={lang} onClaimBonus={() => { earnCredits(1); return true; }} lastClaimDate={new Date().toDateString()} />} />
-          <Route path="/legal" element={<LegalHub lang={lang} />} /> {/* New Route */}
-        </Routes>
+        <Suspense fallback={
+          <div className="min-h-[60vh] flex items-center justify-center" aria-hidden="true">
+            <div className="w-10 h-10 border-2 border-blue-500/50 border-t-blue-400 rounded-full animate-spin" />
+          </div>
+        }>
+          <Routes>
+            <Route path="/" element={<LandingPage lang={lang} />} />
+            <Route path="/portal" element={<Portal lang={lang} />} />
+            <Route path="/dashboard" element={<Dashboard lang={lang} xp={xp} level={level} completedIds={completedIds} myHeroes={myHeroes} />} />
+            <Route path="/factory" element={<HeroFactory lang={lang} addHero={addHero} />} />
+            <Route path="/3d-factory" element={<ThreeDFactory lang={lang} />} />
+            <Route path="/market" element={<HeroMarket lang={lang} myHeroes={myHeroes} />} /> 
+            <Route path="/wise-friends" element={<WiseFriends lang={lang} myHeroes={myHeroes} updateHero={updateHero} completedIds={completedIds} />} />
+            <Route path="/academy" element={<Academy lang={lang} addXp={addXp} completedIds={completedIds} />} />
+            <Route path="/cinema" element={<Cinema lang={lang} myHeroes={myHeroes} />} />
+            <Route path="/ebooks" element={<Ebooks lang={lang} addXp={addXp} completedIds={completedIds} xp={xp} level={level} />} />
+            <Route path="/quiz" element={<Quiz lang={lang} />} />
+            <Route path="/admin" element={<AdminDashboard lang={lang} />} />
+            <Route path="/account" element={<Account lang={lang} onClaimBonus={() => { earnCredits(1); return true; }} lastClaimDate={new Date().toDateString()} />} />
+            <Route path="/legal" element={<LegalHub lang={lang} />} />
+          </Routes>
+        </Suspense>
       </Layout>
     </HashRouter>
   );
