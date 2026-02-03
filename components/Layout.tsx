@@ -62,11 +62,13 @@ const Layout: React.FC<LayoutProps> = ({ children, lang, setLang, xp, level, com
   // ECONOMY DATA
   const { credits, badges } = useEconomy();
 
-  // #region agent log
+  // #region agent log (DEV only – no production requests to 127.0.0.1)
   useEffect(() => {
+    if (!import.meta.env.DEV) return;
     fetch('http://127.0.0.1:7260/ingest/dc0f8245-5936-4005-a5e6-afb53e400b09',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Layout.tsx:render',message:'Layout render',data:{renderCount:renderCountRef.current,hypothesisId:'H3'},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H3'})}).catch(()=>{});
   });
   useEffect(() => {
+    if (!import.meta.env.DEV) return;
     const el = mainScrollRef.current;
     if (!el) return;
     let last = 0;
