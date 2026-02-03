@@ -69,6 +69,9 @@ export const EconomyProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   // 4. ACTIONS
   const spendCredits = (amount: number): boolean => {
+    // #region agent log
+    fetch('http://127.0.0.1:7260/ingest/dc0f8245-5936-4005-a5e6-afb53e400b09',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'EconomyContext.tsx:spendCredits',message:'spendCredits called',data:{amount,hypothesisId:'H3'},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H3'})}).catch(()=>{});
+    // #endregion
     if (credits >= amount) {
       setCredits(prev => prev - amount);
       return true;
@@ -77,10 +80,16 @@ export const EconomyProvider: React.FC<{ children: React.ReactNode }> = ({ child
   };
 
   const earnCredits = (amount: number) => {
+    // #region agent log
+    fetch('http://127.0.0.1:7260/ingest/dc0f8245-5936-4005-a5e6-afb53e400b09',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'EconomyContext.tsx:earnCredits',message:'earnCredits called',data:{amount,hypothesisId:'H3'},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H3'})}).catch(()=>{});
+    // #endregion
     setCredits(prev => prev + amount);
   };
 
   const trackAction = (action: 'PASS_QUIZ' | 'CREATE_IMAGE' | 'CREATE_VIDEO' | 'UPLOAD_HERO' | 'COMPLETE_HERO' | 'READ_ACADEMY' | 'READ_BOOK') => {
+    // #region agent log
+    fetch('http://127.0.0.1:7260/ingest/dc0f8245-5936-4005-a5e6-afb53e400b09',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'EconomyContext.tsx:trackAction',message:'trackAction called',data:{action,hypothesisId:'H3'},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H3'})}).catch(()=>{});
+    // #endregion
     setStats(prev => {
       const newStats = { ...prev };
       let newBadges = { ...badges };

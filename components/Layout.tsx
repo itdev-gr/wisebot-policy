@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Home, 
@@ -55,9 +55,31 @@ const Layout: React.FC<LayoutProps> = ({ children, lang, setLang, xp, level, com
   const location = useLocation();
   const [showLevelModal, setShowLevelModal] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
+  const renderCountRef = useRef(0);
+  renderCountRef.current += 1;
+  const mainScrollRef = useRef<HTMLDivElement>(null);
+
   // ECONOMY DATA
   const { credits, badges } = useEconomy();
+
+  // #region agent log
+  useEffect(() => {
+    fetch('http://127.0.0.1:7260/ingest/dc0f8245-5936-4005-a5e6-afb53e400b09',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Layout.tsx:render',message:'Layout render',data:{renderCount:renderCountRef.current,hypothesisId:'H3'},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H3'})}).catch(()=>{});
+  });
+  useEffect(() => {
+    const el = mainScrollRef.current;
+    if (!el) return;
+    let last = 0;
+    const onScroll = () => {
+      const now = Date.now();
+      if (now - last < 800) return;
+      last = now;
+      fetch('http://127.0.0.1:7260/ingest/dc0f8245-5936-4005-a5e6-afb53e400b09',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Layout.tsx:scroll',message:'main area scroll',data:{hypothesisId:'H4'},timestamp:now,sessionId:'debug-session',hypothesisId:'H4'})}).catch(()=>{});
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+  }, []);
+  // #endregion
   
   const t = UI_TEXT[lang];
 
@@ -542,7 +564,7 @@ const Layout: React.FC<LayoutProps> = ({ children, lang, setLang, xp, level, com
             </header>
           )}
           
-          <div className={`flex-1 overflow-y-auto custom-scrollbar ${isImmersive ? '' : 'p-4 md:p-8 lg:p-12 pb-32 lg:pb-12'}`}>
+          <div className={`flex-1 overflow-y-auto custom-scrollbar ${isImmersive ? '' : 'p-4 md:p-8 lg:p-12 pb-32 lg:pb-12'}`} ref={mainScrollRef}>
             {children}
           </div>
         </main>

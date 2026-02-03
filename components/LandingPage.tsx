@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Rocket, 
@@ -88,6 +88,12 @@ const HISTORY_ITEMS = [
 
 const LandingPage: React.FC<{ lang: 'el' | 'en' }> = ({ lang }) => {
   const [selectedHistory, setSelectedHistory] = useState<typeof HISTORY_ITEMS[0] | null>(null);
+
+  // #region agent log
+  useEffect(() => {
+    fetch('http://127.0.0.1:7260/ingest/dc0f8245-5936-4005-a5e6-afb53e400b09',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LandingPage.tsx:mount',message:'LandingPage mounted, hero infinite animations active',data:{hypothesisId:'H1'},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H1'})}).catch(()=>{});
+  }, []);
+  // #endregion
 
   const floatTransition = (delay: number) => ({
     y: {
