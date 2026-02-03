@@ -177,7 +177,7 @@ const LandingPage: React.FC<{ lang: 'el' | 'en' }> = ({ lang }) => {
 
             <p className="text-base md:text-2xl text-gray-300 font-bold italic leading-relaxed max-w-2xl text-shadow">
               {lang === 'el' 
-                ? "Μάθε. Παίξε. Δημιούργησε τους δικούς σου 3D Ήρωες. Το ταξίδι στην Ακαδημία Wisebot ξεκινάει εδώ."
+                ? "Μάθε. Παίξε. Δημιούργησε τους δικούς σου 3D Ήρωες. Το ταξίδι στην Ακαδημία Wisebot ξεκινάει εδώ.."
                 : "Learn. Play. Create your own 3D Heroes. The journey to Wisebot Academy starts here."}
             </p>
           </motion.div>
