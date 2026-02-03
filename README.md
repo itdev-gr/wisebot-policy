@@ -18,3 +18,14 @@ View your app in AI Studio: https://ai.studio/apps/drive/1F1SRtNdbLX_qSnK3GydfFH
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+## Push to GitHub
+
+Το push πρέπει να γίνεται **από το Terminal του Mac** (όχι από το Cursor), ώστε να χρησιμοποιηθούν τα SSH keys σου:
+
+```bash
+cd /Users/vasilisskevis/Desktop/wisebot-policy-1/wisebot-policy
+git push origin main
+```
+
+Αν δεν έχεις ρυθμίσει SSH key στο GitHub: [GitHub SSH keys](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
