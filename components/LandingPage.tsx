@@ -200,7 +200,7 @@ const LandingPage: React.FC<{ lang: 'el' | 'en' }> = ({ lang }) => {
             >
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
               <Rocket size={32} className="relative z-10 group-hover:-rotate-12 transition-transform" />
-              <span className="relative z-10">{lang === 'el' ? "ΞΕΚΙΝΑ ΤΟ ΤΑΞΙΔΙ" : "START THE JOURNEY"}</span>
+              <span className="relative z-10">{lang === 'el' ? "ΞΕΚΙΝΑ ΤΟ ΤΑΞΙΔΙ." : "START THE JOURNEY."}</span>
               <ChevronRight size={32} className="relative z-10 group-hover:translate-x-2 transition-transform" />
             </RouterLink>
           </motion.div>
