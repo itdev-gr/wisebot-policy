@@ -3,6 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "overrides": {
+    "fetch-blob": "^4.0.0",
+    "node-domexception": "file:./patches/node-domexception-stub"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
