@@ -21,11 +21,10 @@ View your app in AI Studio: https://ai.studio/apps/drive/1F1SRtNdbLX_qSnK3GydfFH
 
 ## Push to GitHub
 
-Το push πρέπει να γίνεται **από το Terminal του Mac** (όχι από το Cursor), ώστε να χρησιμοποιηθούν τα SSH keys σου:
+Για να δουλεύει το **push από το Cursor** (χωρίς να ανοίγεις Terminal), τρέξε **μία φορά** το script με το GitHub Personal Access Token σου:
 
 ```bash
-cd /Users/vasilisskevis/Desktop/wisebot-policy-1/wisebot-policy
-git push origin main
+GITHUB_TOKEN=ghp_xxxxxxxxxxxx ./scripts/setup-git-push.sh
 ```
 
-Αν δεν έχεις ρυθμίσει SSH key στο GitHub: [GitHub SSH keys](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
+Δημιούργησε token: **GitHub → Settings → Developer settings → Personal access tokens** (scope: `repo`). Μετά το push θα δουλεύει και από Cursor.
